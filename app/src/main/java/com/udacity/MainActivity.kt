@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
     private var downloadID: Long = 0
 
     private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
     private lateinit var downloadManager: DownloadManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -152,7 +150,6 @@ class MainActivity : AppCompatActivity() {
             "https://github.com/square/retrofit/archive/refs/heads/master.zip"
         private const val URL_LOADAPP =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
         const val NAME_KEY = "name"
         const val STATUS_KEY = "status"
     }

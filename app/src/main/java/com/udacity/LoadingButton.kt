@@ -40,7 +40,7 @@ class LoadingButton @JvmOverloads constructor(
             currentDegree = (it.animatedValue as Float) * 360
             invalidate()
         }
-        valueAnimator.addListener(object: AnimatorListenerAdapter() {
+        valueAnimator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
                 super.onAnimationEnd(animation)
                 if (buttonState == ButtonState.Clicked) {
@@ -85,7 +85,6 @@ class LoadingButton @JvmOverloads constructor(
     val r = Rect()
     val rectF = RectF()
     val circleIndicatorWidth = 40f
-    val circleIndicatorStartAngle = 0
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -103,8 +102,9 @@ class LoadingButton @JvmOverloads constructor(
             if (buttonState == ButtonState.Loading || buttonState == ButtonState.Clicked) {
                 paint.color = progressBarColor
                 canvas.drawRect(0f, 0f, currentWidth, heightSize.toFloat(), paint)
-                paint.color = textColor
+
                 val text = context.getString(R.string.button_loading)
+                paint.color = textColor
                 canvas.drawText(
                     text,
                     (widthSize / 2).toFloat(),
@@ -112,25 +112,15 @@ class LoadingButton @JvmOverloads constructor(
                     paint
                 )
 
-                canvas.getClipBounds(r)
-                val cHeight = r.height()
-                val cWidth = r.width()
-
-                paint.color = diskColor
                 paint.getTextBounds(text, 0, text.length, r)
                 rectF.set(
-                    (cWidth / 2f + r.width() / 2) + 5,
-                    (cHeight / 2) - circleIndicatorWidth,
-                    (cWidth / 2f + r.width() / 2) + 2 * circleIndicatorWidth,
-                    (cHeight / 2) + circleIndicatorWidth
+                    (widthSize / 2f + r.width() / 2) + 5,
+                    (heightSize / 2) - circleIndicatorWidth,
+                    (widthSize / 2f + r.width() / 2) + 2 * circleIndicatorWidth,
+                    (heightSize / 2) + circleIndicatorWidth
                 )
-                canvas.drawArc(
-                    rectF,
-                    0f, //currentDegree + circleIndicatorStartAngle,
-                    currentDegree,
-                    true,
-                    paint
-                )
+                paint.color = diskColor
+                canvas.drawArc(rectF, 0f, currentDegree, true, paint)
 
             }
         }
